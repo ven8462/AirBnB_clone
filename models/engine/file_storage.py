@@ -29,7 +29,9 @@ class FileStorage:
     def save(self):
         """
         serializes __objects to the JSON file (path: __file_path)
-        
+        """
+
+        """
         new_dict = {}
 
         for key in self.__objects.keys():
@@ -37,7 +39,7 @@ class FileStorage:
 
         with open(self.__file_path, "w") as fobj:
             json.dump(new_dict, fobj)
-            """
+        """
         
         new_dict = {}
 
@@ -52,7 +54,7 @@ class FileStorage:
         deserializes the JSON file to __objects
         """
         if os.path.exists(self.__file_path):
-            with open(self.__file_path) as pobj:
+            with open(self.__file_path, "r", encoding="utf-8") as pobj:
                 py_obj = json.load(pobj)
                 for values in py_obj.values():
                     cls_name = values["__class__"]
