@@ -71,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, str):
         """
-        Deletes an instance based on the class name and id 
+        Deletes an instance based on the class name and id
         and saves the change into the JSON file
         """
         if str:
@@ -88,6 +88,61 @@ class HBNBCommand(cmd.Cmd):
                     storage.save()
                 else:
                     print("** no instance found **")
+        else:
+            print("** class name missing **")
+
+    def do_all(self, cmd_args):
+        """
+        Prints all string representation of all instances
+        based or not on the class name
+        """
+        list_of_strings = []
+        if not cmd_args:
+            for key in storage.all():
+                objects = str(storage.all()[key])
+                list_of_strings.append(objects)
+            
+            print(list_of_strings)
+        else:
+            if cmd_args in self.classes:
+
+                for key in storage.all():
+                    class_name = key.split(".")
+
+                    if class_name[0] == cmd_args:
+                        objects = str(storage.all()[key])
+                        list_of_strings.append(objects)
+
+                print(list_of_strings)
+            else:
+                print("** class doesn't exist **")
+
+    def do_update(self, cmd_args):
+        """
+        Updates an instance based on the class name and id
+        by adding or updating attribute and save the change into the JSON file
+        """
+        if cmd_args:
+            tok = cmd_args.split()
+            if tok[0] in self.classes:
+                if len(tok) < 2:
+                    print("** instance id missing **")
+                else:
+                    key = "{}.{}".format(tok[0], tok[1])
+                    if key in storage.all():
+                        if len(tok) < 3:
+                            print("** attribute name missing **")
+                        elif len(tok) < 4:
+                            print("** value missing **")
+                        else:
+                            # at this point args entered: update <class name> <id> <attribute name> name "<attribute value>"
+                            # TO_DO: update attribute name with value it exists
+                            # or add attribute name with value if it doesn't exist
+                            pass
+                    else:
+                        print("** no instance found **")
+            else:
+                print("** class doesn't exist **")
         else:
             print("** class name missing **")
 
