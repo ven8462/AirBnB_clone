@@ -47,7 +47,7 @@ class FileStorage:
             new_dict[key] = val.to_dict()
 
             with open(self.__file_path, "w", encoding="utf-8") as fobj:
-                json.dump(new_dict, fobj)
+                json.dump(new_dict, fobj, indent=2) #TO-DO remove the indent
 
     def reload(self):
         """
