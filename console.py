@@ -4,6 +4,7 @@ Command-line interpreter module
 """
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
@@ -12,7 +13,7 @@ class HBNBCommand(cmd.Cmd):
     Creates an entry point of the command interpreter
     """
     prompt = "(hbnb) "
-    classes = ("BaseModel")
+    classes = ("BaseModel", "User")
 
     def do_quit(self, line):
         """
@@ -101,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
             for key in storage.all():
                 objects = str(storage.all()[key])
                 list_of_strings.append(objects)
-            
+
             print(list_of_strings)
         else:
             if cmd_args in self.classes:
@@ -120,7 +121,8 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, cmd_args):
         """
         Updates an instance based on the class name and id
-        by adding or updating attribute and save the change into the JSON file
+        by adding or updating attribute and save the
+        change into the JSON file
         """
         if cmd_args:
             tok = cmd_args.split()
@@ -135,9 +137,11 @@ class HBNBCommand(cmd.Cmd):
                         elif len(tok) < 4:
                             print("** value missing **")
                         else:
-                            # at this point args entered: update <class name> <id> <attribute name> name "<attribute value>"
+                            # at this point args entered: update <class name>
+                            # <id> <attribute name> name "<attribute value>"
                             # TO_DO: update attribute name with value it exists
-                            # or add attribute name with value if it doesn't exist
+                            # or add attribute name with value
+                            #  if it doesn't exist
                             pass
                     else:
                         print("** no instance found **")
