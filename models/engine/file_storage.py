@@ -3,6 +3,11 @@
 FileStorage module
 """
 from models.base_model import BaseModel
+from models.state import State
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
 from models.user import User
 import json
 import os
@@ -48,7 +53,7 @@ class FileStorage:
             new_dict[key] = val.to_dict()
 
             with open(self.__file_path, "w", encoding="utf-8") as fobj:
-                json.dump(new_dict, fobj, indent=2) #TO-DO remove the indent
+                json.dump(new_dict, fobj, indent=2)  # TO-DO remove the indent
 
     def reload(self):
         """
