@@ -40,7 +40,7 @@ class FileStorage:
         with open(self.__file_path, "w") as fobj:
             json.dump(new_dict, fobj)
         """
-        
+
         new_dict = {}
 
         for key, val in self.__objects.items():

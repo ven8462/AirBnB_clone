@@ -18,12 +18,13 @@ class BaseModel:
         if kwargs:
             for k, v in kwargs.items():
                 if k in ("created_at", "updated_at"):
-                    self.__dict__[k] = datetime.datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
+                    self.__dict__[k] = datetime.datetime.\
+                                       strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
                 elif k == "__class__":
                     continue
                 else:
                     self.__dict__[k] = v
-        
+
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
         self.updated_at = datetime.datetime.now()
@@ -33,7 +34,8 @@ class BaseModel:
         """
         Prints the string representation of the object
         """
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__)
 
     def save(self):
         """
