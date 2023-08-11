@@ -122,7 +122,7 @@ Delete an instance
 
 ## Resources
 
-<a href=https://elgibbor.hashnode.devairbnb-clone-building-the-console-part-1-introduction>`article`</a><br>
+<a href=https://elgibbor.hashnode.dev/airbnb-clone-building-the-console-part-1-introduction>`article`</a><br>
 <a href=http://pymotw.com/3/cmd>`cmd module`</a><br>
 
 ---
