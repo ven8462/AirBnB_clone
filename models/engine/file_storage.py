@@ -15,7 +15,7 @@ import os
 
 class FileStorage:
     """
-    serializes instances to a JSON file and deserializes JSON file to instances
+    Serializes instances to a JSON file and deserializes JSON file to instances
     """
     __file_path = "file.json"
     __objects = {}
@@ -36,6 +36,13 @@ class FileStorage:
         """
         serializes __objects to the JSON file (path: __file_path)
         """
+        new_dict = {}
+
+        for key, val in self.__objects.items():
+            new_dict[key] = val.to_dict()
+
+            with open(self.__file_path, "w", encoding="utf-8") as fobj:
+                json.dump(new_dict, fobj, indent=2)  # TO-DO remove the indent
 
         """
         new_dict = {}
@@ -46,14 +53,6 @@ class FileStorage:
         with open(self.__file_path, "w") as fobj:
             json.dump(new_dict, fobj)
         """
-
-        new_dict = {}
-
-        for key, val in self.__objects.items():
-            new_dict[key] = val.to_dict()
-
-            with open(self.__file_path, "w", encoding="utf-8") as fobj:
-                json.dump(new_dict, fobj, indent=2)  # TO-DO remove the indent
 
     def reload(self):
         """

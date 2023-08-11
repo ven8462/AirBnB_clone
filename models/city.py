@@ -1,10 +1,14 @@
 #!/usr/bin/python3
-"""city"""
+"""
+City module
+"""
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """city"""
+    """
+    City class
+    """
 
     state_id = ''
     name = ''

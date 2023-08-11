@@ -143,12 +143,12 @@ class HBNBCommand(cmd.Cmd):
                         elif len(tok) < 4:
                             print("** value missing **")
                         else:
-                            # at this point args entered: update <class name>
-                            # <id> <attribute name> name "<attribute value>"
-                            # TO_DO: update attribute name with value it exists
-                            # or add attribute name with value
-                            #  if it doesn't exist
-                            pass
+                            for k, v in storage.all().items():
+                                if k == key:
+                                    attr = eval(tok[3])
+                                    setattr(v, tok[2], attr)
+                                    storage.save()
+                                    break
                     else:
                         print("** no instance found **")
             else:
