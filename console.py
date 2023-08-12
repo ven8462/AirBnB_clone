@@ -169,12 +169,14 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def custom_split(self, cmd_args):
-        args = cmd_args.replace("(", " ").replace(".", " ").replace(")", " ").split()
+        args = cmd_args.replace("(", " ").replace(".", " ").\
+            replace(")", " ").split()
         return args
 
     def default(self, cmd_args):
         """
-        Method called on an input line when the command prefix is not recognized
+        Method called on an input line
+        when the command prefix is not recognized
         """
         if cmd_args.endswith(".all()"):
             args = self.custom_split(cmd_args)
@@ -216,6 +218,7 @@ class HBNBCommand(cmd.Cmd):
         Prints a new line when the interpreter exits
         """
         print()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
