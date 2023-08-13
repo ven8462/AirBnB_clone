@@ -3,6 +3,7 @@
 Command-line interpreter module
 """
 import cmd
+import json
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -169,8 +170,8 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def custom_split(self, cmd_args):
-        args = cmd_args.replace("(", " ").replace(".", " ").\
-            replace(")", " ").split()
+        args = cmd_args.replace(".", " ").replace("(", " ").\
+            replace(",", " ").replace(")", " ").split()
         return args
 
     def default(self, cmd_args):
@@ -211,13 +212,61 @@ class HBNBCommand(cmd.Cmd):
                     class_name = "{} {}".format(args[0], eval_args)
                     self.do_destroy(class_name)
                 except Exception:
-                    print("** Invalid syntax **")
+                    print("** Invalid destroy command syntax **")
+        elif ".update" in cmd_args:
+            if "{" not in cmd_args and "}" not in cmd_args:
+                args = self.custom_split(cmd_args)
 
+                if len(args) < 3:
+                    print("** instance id missing **")
+                elif len(args) < 4:
+                    print("** attribute name missing **")
+                elif len(args) < 5:
+                    print("** value missing **")
+
+                try:
+                    class_name = args[0]
+                    instance_id = eval(args[2])
+                    attribute_name = eval(args[3])
+                    attribute_value = args[4]
+                    update_cmd = f"{class_name} {instance_id}\
+                        {attribute_name} {attribute_value}"
+                    self.do_update(update_cmd)
+                except Exception:
+                    print("** Invalid update command syntax **")
+            else:
+                args = self.custom_split(cmd_args)
+
+                if len(args) < 3:
+                    print("** instance id missing **")
+                else:
+                    start_idx = cmd_args.find("{")
+                    end_idx = cmd_args.find("}")
+
+                    json_str = str(cmd_args[start_idx:end_idx+1]).\
+                        replace("'", "\"").replace("'", "\"")
+
+                    py_dict = json.loads(json_str)
+
+                    for key, value in py_dict.items():
+                        class_name = args[0]
+                        instance_id = eval(args[2])
+                        attribute_name = key
+                        if type(value) is str:
+                            attribute_value = f'"{value}"'
+                        else:
+                            attribute_value = value
+                        update_cmd = f"{class_name} {instance_id}\
+                            {attribute_name} {attribute_value}"
+                        self.do_update(update_cmd)
+
+    '''
     def postloop(self):
         """
         Prints a new line when the interpreter exits
         """
         print()
+    '''
 
 
 if __name__ == '__main__':
