@@ -17,6 +17,9 @@ class TestPlaceInstantiation(unittest.TestCase):
         """
         self.P = Place()
 
+    def tearDown(self):
+        self.place = None
+
     def test_module_docstring(self):
         """
         Tests if module docstring documentation exist
@@ -28,6 +31,22 @@ class TestPlaceInstantiation(unittest.TestCase):
         Tests if class docstring documentation exist
         """
         self.assertTrue(len(Place.__doc__) >= 1)
+
+    def test_attributes_initialization(self):
+        self.assertEqual(self.P.city_id, "")
+        self.assertEqual(self.P.user_id, "")
+        self.assertEqual(self.P.name, "")
+        self.assertEqual(self.P.description, "")
+        self.assertEqual(self.P.number_rooms, 0)
+        self.assertEqual(self.P.number_bathrooms, 0)
+        self.assertEqual(self.P.max_guest, 0)
+        self.assertEqual(self.P.price_by_night, 0)
+        self.assertEqual(self.P.latitude, 0.0)
+        self.assertEqual(self.P.longitude, 0.0)
+        self.assertEqual(self.P.amenity_ids, [])
+        self.assertTrue(hasattr(self.P, "id"))
+        self.assertTrue(hasattr(self.P, "created_at"))
+        self.assertTrue(hasattr(self.P, "updated_at"))
 
     def test_type(self):
         """test method for type testing of place
