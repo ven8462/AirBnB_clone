@@ -260,13 +260,11 @@ class HBNBCommand(cmd.Cmd):
                             {attribute_name} {attribute_value}"
                         self.do_update(update_cmd)
 
-    '''
     def postloop(self):
         """
         Prints a new line when the interpreter exits
         """
         print()
-    '''
 
 
 if __name__ == '__main__':
