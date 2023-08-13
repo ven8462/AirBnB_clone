@@ -22,7 +22,6 @@ class TestHBNBCommand(unittest.TestCase):
             output = fake_out.getvalue().strip()
             self.assertEqual(output, '')
 
-    
     def test_EOF_command_success(self):
         with patch('sys.stdout', new=StringIO()) as fake_out:
             self.assertTrue(self.cmd.onecmd('EOF'))
@@ -34,6 +33,7 @@ class TestHBNBCommand(unittest.TestCase):
             self.cmd.onecmd('')
             output = fake_out.getvalue().strip()
             self.assertEqual(output, '')
+
 
 if __name__ == '__main__':
     unittest.main()

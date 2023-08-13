@@ -156,6 +156,69 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class name missing **")
 
+    def do_count(self, cmd_args):
+        """
+        Retrieves the number of instances of a class
+        """
+        count = 0
+        objects = storage.all()
+        for key, value in objects.items():
+            if type(value).__name__ == cmd_args:
+                count += 1
+
+        print(count)
+
+    def custom_split(self, cmd_args):
+        args = cmd_args.replace("(", " ").replace(".", " ").\
+            replace(")", " ").split()
+        return args
+
+    def default(self, cmd_args):
+        """
+        Method called on an input line
+        when the command prefix is not recognized
+        """
+        if cmd_args.endswith(".all()"):
+            args = self.custom_split(cmd_args)
+            class_name = args[0]
+            self.do_all(class_name)
+        elif cmd_args.endswith(".count()"):
+            args = self.custom_split(cmd_args)
+            class_name = args[0]
+            self.do_count(class_name)
+        elif ".show" in cmd_args:
+            args = self.custom_split(cmd_args)
+            if args[0] not in self.classes:
+                print("** class doesn't exist **")
+            elif len(args) < 3:
+                print("** instance id missing **")
+            else:
+                try:
+                    eval_args = eval(args[2])
+                    class_name = "{} {}".format(args[0], eval_args)
+                    self.do_show(class_name)
+                except Exception:
+                    print("** Invalid syntax **")
+        elif ".destroy" in cmd_args:
+            args = self.custom_split(cmd_args)
+            if args[0] not in self.classes:
+                print("** class doesn't exist **")
+            elif len(args) < 3:
+                print("** instance id missing **")
+            else:
+                try:
+                    eval_args = eval(args[2])
+                    class_name = "{} {}".format(args[0], eval_args)
+                    self.do_destroy(class_name)
+                except Exception:
+                    print("** Invalid syntax **")
+
+    def postloop(self):
+        """
+        Prints a new line when the interpreter exits
+        """
+        print()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
